@@ -21,3 +21,8 @@ const Action = {
   Help: "help",
   Clear: "clear",
 };
+
+const InternalAction = {
+	RoomStart: "room start",
+	RoomEnd: "room end",
+}
