@@ -9,19 +9,19 @@ const Direction = {
 };
 
 class Room {
-	/**
-	 * Create a new room
-	 * @param {string} name The name of the room
-	 * @param {string} image The image to use for the room
-	 * @param {string[]} interactable The names of the interactable objects in the room
-	 * @param {object} initialData The initial shared data used within the room
-	 */
+  /**
+   * Create a new room
+   * @param {string} name The name of the room
+   * @param {string} image The image to use for the room
+   * @param {string[]} interactable The names of the interactable objects in the room
+   * @param {object} initialData The initial shared data used within the room
+   */
   constructor(name, image, interactables = [], initialData = {}) {
     this.id = uniqueWorldId++;
     this.name = name;
     this.image = image;
     this.listeners = {};
-	this.interactables = interactables;
+    this.interactables = interactables;
     this.data = initialData;
   }
 

@@ -94,17 +94,20 @@ function showHelp(command) {
 }
 
 function inventory(command) {
-  addHistory(command, "You have " + formatList([]) + " in your inventory", true);
+  addHistory(
+    command,
+    "You have " + formatList([]) + " in your inventory",
+    true,
+  );
 }
 
 function lookAround(command) {
   addHistory(command, "You see " + formatList(currentRoom.interactables), true);
 }
 
-
-/**========================================================================
+/** ========================================================================
  *                           Helper Functions
- *========================================================================**/
+ * ========================================================================* */
 
 /**
  * Format a list of items into a string.
@@ -113,8 +116,14 @@ function lookAround(command) {
  * @param {string} [separator="and"] The separator to use between items
  * @param {string} [defaults="nothing"] The default string to use if the list is empty
  */
-function formatList(list, formatter = e => e, separator = "and", defaults = "nothing") {
+function formatList(
+  list,
+  formatter = (e) => e,
+  separator = "and",
+  defaults = "nothing",
+) {
   if (list.length === 0) return defaults;
   if (list.length === 1) return formatter(list[0]);
-  return list.slice(0, -1).map(formatter).join(", ") + " " + separator + " " + formatter(list[list.length - 1]);
+  return list.slice(0, -1).map(formatter).join(", ") + " " + separator + " " +
+    formatter(list[list.length - 1]);
 }
