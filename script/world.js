@@ -7,33 +7,53 @@ let currentRoom = undefined;
 const rooms = {};
 
 function initializeWorld() {
-  const desert_outsideBase = new Room(
+  const desert_outsideBar = new Room(
     "Desert outside bar",
-    "You are standing outside a bar in the desert. The hangar is empty and you can hear the wind blowing in the distance.",
-    "assets/inspiration/sq2.jpg",
+    "You are standing outside a bar in the desert. There are some ships left in the hangar and you can hear the wind blowing in the distance.",
+    "assets/world/desert_bar_outside.png",
+    ["a bar", "space ships", "a speeder"],
   );
-  addRoom(desert_outsideBase);
+  addRoom(desert_outsideBar);
 
-  const desert_insideBase = new Room(
+  const desert_insideBar = new Room(
     "Desert inside bar",
     "You are standing inside. There is lively music playing and you can see people chatting by the bar.",
     "assets/inspiration/36b5.gif",
+    ["people", "bar"],
   );
-  addRoom(desert_insideBase);
+  addRoom(desert_insideBar);
 
-  desert_outsideBase.addListener(Action.Enter, (args) => {
+  desert_outsideBar.addListener(Action.Enter, function(args) {
     if ([Keyword.Building.Bar].includes(args[0])) {
-      goto(desert_insideBase);
+      this.data.onSpeeder = false;
+      goto(desert_insideBar);
       return { status: true, message: "You enter the " + args[0] + "." };
     }
     return { status: false, message: "Unknown building." };
   });
-  desert_insideBase.addListener(Action.Exit, () => {
-    goto(desert_outsideBase);
+  desert_outsideBar.addListener(Action.Mount, function (args) {
+    if (args[0] === "speeder") {
+      this.data.onSpeeder = true;
+      return { status: true, message: "You sat on the speeder." };
+    }
+    return { status: false, message: "You can't mount that." };
+  });
+  desert_outsideBar.addListener(Action.Start, function (args) {
+    if (args[0] === "engine") {
+      if (this.data.onSpeeder) {
+        return { status: true, message: "You ignite the speeder's engine." };
+      }
+      return { status: false, message: "You have no vehicle to start." };
+    }
+    return { status: false, message: "You can't start that." };
+  });
+
+  desert_insideBar.addListener(Action.Exit, () => {
+    goto(desert_outsideBar);
     return { status: true, message: "You exit the bar." };
   });
 
-  goto(desert_outsideBase);
+  goto(desert_outsideBar);
 }
 
 /**
@@ -49,8 +69,8 @@ function addRoom(room) {
  * @param {Room} room The room to go to
  */
 function goto(room) {
-  if (currentRoom) currentRoom.notify("end", room.id);
+  if (currentRoom) currentRoom.notify(InternalAction.RoomEnd);
   currentRoom = rooms[room.id];
   currentRoom.draw();
-  currentRoom.notify("beginning", this.name);
+  currentRoom.notify(InternalAction.RoomStart);
 }
