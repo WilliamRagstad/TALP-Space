@@ -50,7 +50,7 @@ class Room {
    */
   notify(event, args) {
     if (this.listeners[event]) {
-      return this.listeners[event](args);
+      return this.listeners[event].call(this, args);
     }
     return { status: false, message: "You cannot do that here" };
   }
