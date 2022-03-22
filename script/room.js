@@ -57,11 +57,12 @@ class Room {
     if (this.listeners[event]) {
       return this.listeners[event].call(this, args);
     }
-    return { status: false, message: "You cannot do that here" };
-  }
-
-  hasAction(action) {
-    return this.listeners[action] !== undefined;
+	const errorMessages = [
+		"You can't do that here.",
+		`You cannot ${event} here.`,
+		"You cannot do that here."
+	]
+    return { status: false, message: errorMessages[Math.floor(Math.random() * errorMessages.length)] };
   }
 
   draw() {
