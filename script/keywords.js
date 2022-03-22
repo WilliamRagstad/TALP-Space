@@ -5,4 +5,10 @@ const Keyword = {
 	Vehicle: {
 		Spaceship: "spaceship",
 	},
+	Person: {
+		Player: "player",
+	},
+	Animal: {
+		Dog: "dog",
+	},
 }

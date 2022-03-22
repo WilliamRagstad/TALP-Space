@@ -7,22 +7,36 @@ function initializeCommands() {
 	})
 }
 
+
 function execute(command) {
-	const parts = command.toLowerCase().split(' ');
+	const parts = command.trim().toLowerCase().split(' ');
 	const action = parts[0];
 	const args = parts.shift();
 
-	switch (action) {
-		case 'help':
-			showHelp(command);
-			break;
-		case 'clear':
-			clearHistory();
-			break;
-		default:
-			addHistory(command);
-			break;
+	if (action === 'help') showHelp(command);
+	else if (action === 'clear') clearHistory();
+	else if (action === 'inventory') inventory(command);
+	else if (['enter', 'exit'].includes(action)) {
+		const result = currentRoom.notify(action, args);
+		addHistory(command, result.message, result.status);
 	}
+	else {
+		let altAction = action;
+		let found = false;
+		for(let i = 0; i < args.length; i++) {
+			altAction += ' ' + args[i];
+			if (currentRoom.hasAction(altAction)) {
+				const result = currentRoom.notify(altAction, args.slice(i + 1));
+				addHistory(command, result.message, result.status);
+				found = true;
+				break;
+			}
+		}
+		if (!found) {
+			addHistory(command, `Unknown action '${action}'`, false);
+		}
+	}
+
 	inputBox.value = '';
 }
 
@@ -31,5 +45,10 @@ function execute(command) {
  *========================================================================**/
 
 function showHelp(command) {
-	addHistory(command, 'Available commands: help, clear');
+	let commands = Object.keys(Event).map(key => Event[key]);
+	addHistory(command, 'Available commands: ' + commands.sort().join(', '), true);
+}
+
+function inventory(command) {
+	addHistory(command, 'You have nothing in your inventory', true);
 }
