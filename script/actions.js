@@ -2,7 +2,8 @@
 const Action = {
   Enter: "enter",
   Exit: "exit",
-  Look: "look at",
+  LookAt: "look at",
+  LookAround: "look around",
   Inspect: "inspect",
   Walk: "walk",
   Take: "take",
