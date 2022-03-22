@@ -61,6 +61,5 @@ narrator.voice = voices[0];
 function narratorSpeak(text) {
   if (!narratorEnabled) return;
   narrator.text = text;
-  console.log("talking");
   window.speechSynthesis.speak(narrator);
 }
