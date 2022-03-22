@@ -1,3 +1,4 @@
+// deno-lint-ignore-file no-unused-vars
 let uniqueWorldId = 0;
 
 const Direction = {

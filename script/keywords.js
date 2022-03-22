@@ -1,3 +1,4 @@
+// deno-lint-ignore-file no-unused-vars
 const Keyword = {
   Building: {
     Bunker: "bunker",

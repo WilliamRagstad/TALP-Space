@@ -1,3 +1,4 @@
+// deno-lint-ignore-file no-unused-vars
 const commandHistory = [];
 let commandHistoryOffset = 0;
 function initializeCommands() {
