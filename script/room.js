@@ -8,12 +8,12 @@ const Direction = {
 };
 
 class Room {
-  constructor(name, image) {
+  constructor(name, image, initialData = {}) {
     this.id = uniqueWorldId++;
     this.name = name;
     this.image = image;
     this.listeners = {};
-    this.data = {};
+    this.data = initialData;
   }
 
   /**
