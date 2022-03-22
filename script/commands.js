@@ -35,8 +35,20 @@ function execute(command) {
   if (action === "help") showHelp(command);
   else if (action === "clear") clearHistory();
   else if (action === "inventory") inventory(command);
+  else if (action + " " + args[0] === "look around") lookAround(command);
   else if (
-    ["enter", "exit", "walk", "take", "drop", "use", "open", "close", "attack"]
+    [
+      "enter",
+      "exit",
+      "walk",
+      "take",
+      "drop",
+      "use",
+      "open",
+      "close",
+      "attack",
+      "inspect",
+    ]
       .includes(action)
   ) {
     const result = currentRoom.notify(action, args);
@@ -67,17 +79,39 @@ function execute(command) {
  * ========================================================================* */
 
 function showHelp(command) {
-  const formatCommand = (command) => `<span class="help-command">${command}</span>`;
+  const formatCommand = (command) =>
+    `<span class="help-command">${command}</span>`;
   const commands = Object.keys(Action).map((key) => Action[key]);
   const lastCommand = commands.pop();
   addHistory(
     command,
-    "Available commands: " + commands.sort().map(formatCommand).join(", ") +
-      (lastCommand ? " and " + formatCommand(lastCommand) : "") + ".",
+    "Available commands: " + formatList(commands.sort(), formatCommand) + ".",
     true,
   );
 }
 
 function inventory(command) {
-  addHistory(command, "You have nothing in your inventory", true);
+  addHistory(command, "You have " + formatList([]) + " in your inventory", true);
+}
+
+function lookAround(command) {
+  addHistory(command, "You see " + formatList(currentRoom.interactables), true);
+}
+
+
+/**========================================================================
+ *                           Helper Functions
+ *========================================================================**/
+
+/**
+ * Format a list of items into a string.
+ * @param {any[]} list The list to format
+ * @param {(e: string) => string} [formatter=e=>e] The formatter function
+ * @param {string} [separator="and"] The separator to use between items
+ * @param {string} [defaults="nothing"] The default string to use if the list is empty
+ */
+function formatList(list, formatter = e => e, separator = "and", defaults = "nothing") {
+  if (list.length === 0) return defaults;
+  if (list.length === 1) return formatter(list[0]);
+  return list.slice(0, -1).map(formatter).join(", ") + " " + separator + " " + formatter(list[list.length - 1]);
 }
