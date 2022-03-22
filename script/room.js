@@ -18,7 +18,7 @@ class Room {
 
   /**
    * Adds a listener for the given event.
-   * @param {Event} event The event to listen for
+   * @param {Action} event The action event to listen for
    * @param {(args: string[]) => { status: boolean, message: string }} callback The callback to call when the event is triggered
    */
   addListener(event, callback) {
@@ -31,7 +31,7 @@ class Room {
   }
 
   /**
-   * @param {Event} event The event to trigger
+   * @param {Action} event The action event to trigger
    * @param {string} command The command that triggered the event
    * @param {string[]} args The arguments to the command
    * @returns {{ status: boolean, message: string }} Whether the event was handled and successful

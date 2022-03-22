@@ -1,4 +1,4 @@
-const Event = {
+const Action = {
   Enter: "enter",
   Exit: "exit",
   Look: "look at",

@@ -45,7 +45,7 @@ function execute(command) {
  * ========================================================================* */
 
 function showHelp(command) {
-  let commands = Object.keys(Event).map((key) => Event[key]);
+  const commands = Object.keys(Action).map((key) => Action[key]);
   addHistory(
     command,
     "Available commands: " + commands.sort().join(", "),
