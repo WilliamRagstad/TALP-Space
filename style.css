@@ -82,6 +82,13 @@ body {
   outline: none;
 }
 
+#narrative {
+	flex: 1;
+	margin-right: 16px;
+	font-style: italic;
+    color: var(--ternary-fg);
+}
+
 #history {
   color: var(--primary-fg);
   padding: 4px 8px;
@@ -102,6 +109,28 @@ body {
   color: var(--primary-fg);
 }
 
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #242424 #101011;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #101011;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #242424;
+  border-radius: 6px;
+  border: none;
+}
+
 .action-link {
   color: var(--secondary-fg);
   text-decoration: none;
@@ -112,11 +141,15 @@ body {
   border-bottom: 1px solid var(--ternary-fg);
 }
 
+.space-between {
+	  justify-content: space-between;
+}
+
 .flex-end {
   justify-content: flex-end;
 }
 
 .help-command {
-	font-style: italic;
-    font-weight: 200;
+  font-style: italic;
+  font-weight: 200;
 }

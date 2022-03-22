@@ -9,12 +9,14 @@ const rooms = {};
 function initializeWorld() {
   const desert_outsideBase = new Room(
     "Desert outside bar",
+    "You are standing outside a bar in the desert. The hangar is empty and you can hear the wind blowing in the distance.",
     "assets/inspiration/sq2.jpg",
   );
   addRoom(desert_outsideBase);
 
   const desert_insideBase = new Room(
     "Desert inside bar",
+    "You are standing inside. There is lively music playing and you can see people chatting by the bar.",
     "assets/inspiration/36b5.gif",
   );
   addRoom(desert_insideBase);

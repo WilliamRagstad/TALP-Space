@@ -21,6 +21,15 @@ function addHistory(command, output, success) {
   updateOpacities();
 }
 
+function addNarrative(text, speak = true) {
+  narrative.innerHTML = text;
+  if (speak) {
+    setTimeout(() => {
+      narratorSpeak(text);
+    }, 1000);
+  }
+}
+
 function updateOpacities() {
   const minOpacity = 0.25;
   const steps = 5;
@@ -32,4 +41,26 @@ function updateOpacities() {
 
 function clearHistory() {
   history.innerHTML = "";
+}
+
+/** ========================================================================
+ *                           Narrator
+ * ========================================================================* */
+
+// deno-lint-ignore prefer-const
+let narratorEnabled = true;
+const narrator = new SpeechSynthesisUtterance();
+const voices = speechSynthesis.getVoices().filter((v) =>
+  v.lang.startsWith("en")
+);
+narrator.lang = "en-US";
+narrator.rate = 1.3;
+narrator.pitch = 0.7;
+narrator.volume = 0.4;
+narrator.voice = voices[0];
+function narratorSpeak(text) {
+  if (!narratorEnabled) return;
+  narrator.text = text;
+  console.log("talking");
+  window.speechSynthesis.speak(narrator);
 }
