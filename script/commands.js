@@ -9,7 +9,7 @@ function initializeCommands() {
 function execute(command) {
   const parts = command.trim().toLowerCase().split(" ");
   const action = parts[0];
-  const args = parts.shift();
+  const args = parts.slice(1);
 
   if (action === "help") showHelp(command);
   else if (action === "clear") clearHistory();
