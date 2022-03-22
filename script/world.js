@@ -10,7 +10,7 @@ function initializeWorld() {
 
   const desert_insideBase = new Room(
     "Desert inside bar",
-    "assets/inspiration/36b5.gif"
+    "assets/inspiration/36b5.gif",
   );
   addRoom(desert_insideBase);
 
@@ -22,9 +22,9 @@ function initializeWorld() {
     return { status: false, message: "Unknown building." };
   });
   desert_insideBase.addListener(Action.Exit, () => {
-	  goto(desert_outsideBase);
-	  return { status: true, message: "You exit the bar." };
-	});
+    goto(desert_outsideBase);
+    return { status: true, message: "You exit the bar." };
+  });
 
   goto(desert_outsideBase);
 }
