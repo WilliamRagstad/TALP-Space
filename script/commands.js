@@ -36,33 +36,18 @@ function execute(command) {
   else if (action === "clear") clearHistory();
   else if (action === "inventory") inventory(command);
   else if (action + " " + args[0] === "look around") lookAround(command);
-  else if (
-    [
-      "enter",
-      "exit",
-      "walk",
-      "take",
-      "drop",
-      "use",
-      "open",
-      "close",
-      "attack",
-      "inspect",
-    ]
-      .includes(action)
-  ) {
-    const result = currentRoom.notify(action, args);
-    addHistory(command, result.message, result.status);
-  } else if (["look at", "talk to"].includes(action + " " + args[0])) {
-    const result = currentRoom.notify(action + " " + args[0], args.slice(1));
-    addHistory(command, result.message, result.status);
-  } else {
-    let altAction = action;
+  else {
+    let altAction = "";
     let found = false;
-    for (let i = 0; i < args.length; i++) {
-      altAction += " " + args[i];
-      if (currentRoom.hasAction(altAction)) {
-        const result = currentRoom.notify(altAction, args.slice(i + 1));
+    for (let i = 0; i < parts.length; i++) {
+      if (altAction.length > 0) {
+        altAction += " " + parts[i];
+      } else {
+        altAction = parts[i];
+      }
+      if (Object.values(Action).includes(altAction)) {
+        const altArgs = parts.slice(i + 1);
+        const result = currentRoom.notify(altAction, altArgs);
         addHistory(command, result.message, result.status);
         found = true;
         break;
