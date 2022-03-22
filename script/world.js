@@ -12,8 +12,6 @@ function initializeWorld() {
     "assets/inspiration/36b5.gif",
   );
   addRoom(desert_insideBase);
-  desert_outsideBase.addNeighbor(Direction.EAST, desert_insideBase);
-  desert_insideBase.addNeighbor(Direction.WEST, desert_outsideBase);
 
   goto(desert_outsideBase.id);
 }

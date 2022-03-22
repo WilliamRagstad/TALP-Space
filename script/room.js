@@ -13,7 +13,6 @@ class Room {
     this.name = name;
     this.image = image;
     this.listeners = {};
-    this.neighbors = {};
     this.data = {};
   }
 
@@ -46,22 +45,6 @@ class Room {
 
   hasAction(action) {
     return this.listeners[action] !== undefined;
-  }
-
-  addNeighbor(direction, room) {
-    if (this.neighbors[direction]) {
-      throw new Error(
-        `Room ${this.name} already has a neighbor in direction ${direction}`,
-      );
-    }
-    if (!Object.values(Direction).includes(direction)) {
-      throw new Error(`Direction ${direction} is not a valid direction`);
-    }
-    this.neighbors[direction] = room;
-  }
-
-  getNeighbor(direction) {
-    return this.neighbors[direction];
   }
 
   draw() {
