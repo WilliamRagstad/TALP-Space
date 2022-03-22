@@ -53,6 +53,9 @@ function execute(command) {
   ) {
     const result = currentRoom.notify(action, args);
     addHistory(command, result.message, result.status);
+  } else if (["look at", "talk to"].includes(action + " " + args[0])) {
+    const result = currentRoom.notify(action + " " + args[0], args.slice(1));
+    addHistory(command, result.message, result.status);
   } else {
     let altAction = action;
     let found = false;
