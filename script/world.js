@@ -1,4 +1,8 @@
 // deno-lint-ignore-file no-unused-vars
+/**
+ * The current room.
+ * @type {Room}
+ */
 let currentRoom = undefined;
 const rooms = {};
 
@@ -30,10 +34,18 @@ function initializeWorld() {
   goto(desert_outsideBase);
 }
 
+/**
+ * Add a room to the world.
+ * @param {Room} room The room to add
+ */
 function addRoom(room) {
   rooms[room.id] = room;
 }
 
+/**
+ * Go to the given room.
+ * @param {Room} room The room to go to
+ */
 function goto(room) {
   if (currentRoom) currentRoom.notify("end", room.id);
   currentRoom = rooms[room.id];
