@@ -26,6 +26,11 @@ class Room {
     this.interactables = interactables;
     this.data = initialData;
 	this.visited = false;
+
+	this.addListener(InternalAction.RoomStart, () => {
+		addNarrative(narrative, !this.visited);
+		this.visited = true;
+	});
   }
 
   /**
