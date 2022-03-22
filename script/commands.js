@@ -1,7 +1,27 @@
+const commandHistory = [];
+let commandHistoryOffset = 0;
 function initializeCommands() {
   inputBox.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       execute(e.target.value);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (commandHistory.length > 0 && commandHistoryOffset > 0) {
+        commandHistoryOffset--;
+        inputBox.value =
+          commandHistory[commandHistory.length - 1 - commandHistoryOffset];
+      }
+    } else if (e.key === "ArrowDown") {
+      // Move up the command history/down the list
+      e.preventDefault();
+      if (
+        commandHistory.length > 0 &&
+        commandHistoryOffset < commandHistory.length - 1
+      ) {
+        commandHistoryOffset++;
+        inputBox.value =
+          commandHistory[commandHistory.length - 1 - commandHistoryOffset];
+      }
     }
   });
 }
@@ -36,7 +56,8 @@ function execute(command) {
       addHistory(command, `Unknown action '${action}'`, false);
     }
   }
-
+  commandHistory.push(command);
+  commandHistoryOffset = -1;
   inputBox.value = "";
 }
 
