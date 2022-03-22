@@ -66,10 +66,13 @@ function execute(command) {
  * ========================================================================* */
 
 function showHelp(command) {
+  const formatCommand = (command) => `<span class="help-command">${command}</span>`;
   const commands = Object.keys(Action).map((key) => Action[key]);
+  const lastCommand = commands.pop();
   addHistory(
     command,
-    "Available commands: " + commands.sort().join(", "),
+    "Available commands: " + commands.sort().map(formatCommand).join(", ") +
+      (lastCommand ? " and " + formatCommand(lastCommand) : "") + ".",
     true,
   );
 }
