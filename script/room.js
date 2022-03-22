@@ -57,6 +57,10 @@ class Room {
 		this.neighbors[direction] = room;
 	}
 
+	getNeighbor(direction) {
+		return this.neighbors[direction];
+	}
+
 	draw() {
 		view.src = this.image;
 	}
