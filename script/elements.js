@@ -1,6 +1,6 @@
-const view = document.getElementById('view');
-const inputBox = document.getElementById('input-box');
-const history = document.getElementById('history');
-const historyItems = document.getElementsByClassName('history-item');
+const view = document.getElementById("view");
+const inputBox = document.getElementById("input-box");
+const history = document.getElementById("history");
+const historyItems = document.getElementsByClassName("history-item");
 
-const linkHelp = document.getElementById('link-help');
+const linkHelp = document.getElementById("link-help");
